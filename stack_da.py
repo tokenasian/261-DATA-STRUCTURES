@@ -1,9 +1,9 @@
-# Name:
-# OSU Email:
+# Name: Matthew Armstrong
+# OSU Email: armstrm2@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: Assignment 3
+# Due Date: May 2nd
+# Description: Implement a Stack ADT class.
 
 
 from dynamic_array import *
@@ -52,22 +52,33 @@ class Stack:
 
     def push(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Adds a new element to the top of the stack.
+        O(1) amortized runtime complexity.
         """
-        pass
+        self._da.append(value)
 
     def pop(self) -> object:
         """
-        TODO: Write this implementation
+        Removes the top element from the stack and returns its value. 
+        O(1) amortized runtime complexity.
         """
-        pass
+        if self.is_empty(): # is the stack empty? 
+            raise StackException  # if so, raise exception
+        else:
+            popped_node = self.size() - 1  
+            top_element = self._da.get_at_index(popped_node)  # find the top element from the stack
+            self._da.remove_at_index(popped_node)  # remove the top element from the stack
+            return top_element
 
     def top(self) -> object:
         """
-        TODO: Write this implementation
+        Returns the value of the top element of the stack without removing it. 
+        O(1) runtime complexity
         """
-        pass
-
+        if self.is_empty():  # is the stack empty?
+            raise StackException  # if so, raise exception
+        else:  # return the value of the top element
+            return self._da[self.size() - 1]
 
 # ------------------- BASIC TESTING -----------------------------------------
 
