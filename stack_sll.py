@@ -1,9 +1,9 @@
-# Name:
-# OSU Email:
+# Name: Matthew Armstrong
+# OSU Email: armstrm2@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: Assignment 3
+# Due Date: May 2nd
+# Description: Implement a Stack ADT class.
 
 
 from SLNode import SLNode
@@ -63,21 +63,39 @@ class Stack:
 
     def push(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Adds a new element to the top of the stack. 
+        O(1) runtime complexity.
         """
-        pass
+        if self.is_empty():  # is the stack empty? 
+            self._head = SLNode(value)  # if so, create a new head 
+
+        else:  # create a link for the new node to the head
+            new_node = SLNode(value, self._head)  
+            new_node.next = self._head  # set next of new node as head
+            self._head = new_node  # update the head to point to the new node
 
     def pop(self) -> object:
         """
-        TODO: Write this implementation
+        Removes the top element from the stack, returns its value. 
+        O(1) runtime complexity. 
         """
-        pass
+        if self.is_empty():  # is the stack empty? 
+            raise StackException  # if so, raise exception
+
+        else: 
+            popped_node = self._head.value  # remove the top element
+            self._head = self._head.next  # save the preceding element as the new head
+            return popped_node
 
     def top(self) -> object:
         """
-        TODO: Write this implementation
+        Returns the value of the top element of the stack without removing it. 
+        O(1) runtime complexity.
         """
-        pass
+        if self.is_empty():  # is the stack empty?
+            raise StackException()  # if so, raise exception
+        else:  # return the value of top element, without removing it
+            return self._head.value  
 
 # ------------------- BASIC TESTING -----------------------------------------
 
