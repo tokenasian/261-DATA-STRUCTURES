@@ -1,9 +1,9 @@
-# Name:
-# OSU Email:
+# Name: Matthew Armstrong
+# OSU Email: armstrm2@oregonstate.edu
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: Assignment 3
+# Due Date: May 2nd
+# Description: Implement a Queue ADT class.
 
 
 from SLNode import SLNode
@@ -64,22 +64,44 @@ class Queue:
 
     def enqueue(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Adds a new value to the end of the queue. 
+        O(1)runtime complexity.
         """
-        pass
+        new_node = SLNode(value, self._tail)
+        if self.is_empty():  # is the queue empty?
+            self._head = new_node  # if so, create new head
+            
+        else:  # if not empty, add a new value to the end of the queue
+            curr = self._head
+            while curr.next != self._tail:
+                curr = curr.next
+            curr.next = new_node
 
     def dequeue(self) -> object:
         """
-        TODO: Write this implementation
+        Removes and returns the value from the beginning of the queue. 
+        O(1)runtime complexity.
         """
-        pass
+        if self.is_empty():  # is the queue empty?
+            raise QueueException  # if so, raise exeption
+
+        else:
+            value = self._head.value  # save the head
+            self._head = self._head.next  # remove the value from the beginning of the queue
+            return value  # return value
 
     def front(self) -> object:
         """
-        TODO: Write this implementation
+        Returns the value of the front element of the queue,
+        without removing it. 
+        O(1) runtime complexity.
         """
-        pass
+        if self.is_empty():  # is the queue empty?
+            raise QueueException()  # if so, raise exception
 
+        else:  # return the value of the front element of the queue
+            front_element = self._head.value
+            return front_element
 
 # ------------------- BASIC TESTING -----------------------------------------
 
