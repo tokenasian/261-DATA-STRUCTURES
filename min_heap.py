@@ -146,19 +146,21 @@ class MinHeap:
    
 def heapsort(da: DynamicArray) -> None:
     """
-    Write a function that receives a DynamicArray and sorts its content in non-ascending order, using the Heapsort algorithm. You must sort the array in place, without creating a new array. This method does not return anything.
-    The runtime complexity of this implementation must be O(N log N). 
-    If the sort uses an algorithm other than Heapsort, 
-    you will not receive any points for this portion of the assignment, 
-    even if your function passes Gradescope.
+    Function receives a DynamicArray, sorts in non-ascending order, 
+    using the Heapsort algorithm. 
+    Must sort the array in place, without creating a new array. 
+    Must be O(N log N). 
     """
-    n = da.length()
-    i = n - 1
-    heap = MinHeap()
-    heap.build_heap(da)
-    while i >= 0:
-        da[i] = heap.remove_min()
-        i -= 1
+
+    # n = da.length()
+    # k = n - 1
+    # heap = MinHeap()
+    # heap.build_heap(da)
+    # while k >= 0:
+        # da[k] = heap.remove_min()
+        # k -= 1
+
+
 
 # ------------------- BASIC TESTING -----------------------------------------
 
