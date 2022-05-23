@@ -50,14 +50,16 @@ class MinHeap:
 
         while parent_idx != 0:
             parent_idx = (parent_idx - 1) // 2  # computing the inserted element's parent index, i - 1 / 2
-            
-            if self._heap.get_at_index(parent_idx) > self._heap.get_at_index(index):  # compare the value of the inserted element with the value of its parent
-                self.swap(index, parent_idx)  # swap the elements, do not repeat if the element has reached the beginning of the array
+
+            if self._heap.get_at_index(parent_idx) > self._heap.get_at_index(
+                    index):  # compare the value of the inserted element with the value of its parent
+                self.swap(index,
+                          parent_idx)  # swap the elements, do not repeat if the element has reached the beginning of the array
                 index = parent_idx
 
     def is_empty(self) -> bool:
         """
-        Returns True if the heap is empty; 
+        Returns True if the heap is empty;
         otherwise, it returns False.
         O(1).
         """
@@ -65,7 +67,7 @@ class MinHeap:
 
     def get_min(self) -> object:
         """
-        Returns an object with the minimum key, without removing it from the heap. 
+        Returns an object with the minimum key, without removing it from the heap.
         If the heap is empty, the method raises a MinHeapException.
         O(1).
         """
@@ -75,7 +77,7 @@ class MinHeap:
 
     def remove_min(self) -> object:
         """Returns an object with the minimum key, removes it from the heap. If the heap is empty, the method raises a MinHeapException.
-        For the downward percolation of the replacement node: 
+        For the downward percolation of the replacement node:
         if both children of the node have the same value (and are both smaller than the node), swap with the left child.
         O(log N)."""
         if self._heap.is_empty():  # is the heap empty?
@@ -86,40 +88,25 @@ class MinHeap:
         parent_index = self._heap.get_at_index(prev_index)
         self._heap.set_at_index(0, parent_index)  # swap the values
         self._heap.remove_at_index(prev_index)  # remove the last value
-        self.percolate_down(0)  # percolate down...
+        percolate_down(self._heap, 0)  # percolate down...
         return min_value  # return the min value
-
-    def percolate_down(self, index):
-        """Helper function"""
-        left_child = index * 2 + 1  # define the left child of node at index 
-        right_child = index * 2 + 2  # define the right child of node at index 
-        size = self._heap.length() -1  # define the length
-        min_value = index # min_value value node at index
-        # compare the left and right child to find the min_value value
-        if left_child <= size and self._heap.get_at_index(min_value) > self._heap.get_at_index(left_child):
-            min_value = left_child
-        if right_child <= size and self._heap.get_at_index(min_value) > self._heap.get_at_index(right_child):
-            min_value = right_child
-        if min_value != index:
-            self.swap(index, min_value)  # swap with a child having a smaller value
-            self.percolate_down(min_value)  # percolate down...
 
     def build_heap(self, da: DynamicArray) -> None:
         """
-        Receives a Dynamic Array with objects in any order, and builds a proper MinHeap from them. 
+        Receives a Dynamic Array with objects in any order, and builds a proper MinHeap from them.
         The current content of the MinHeap is overwritten.
-        Must be O(N), not O(N log N), 
+        Must be O(N), not O(N log N),
         """
-        new_heap = DynamicArray() # copy the dynamic array, replace the heap
-        for i in range(da.length()): 
+        new_heap = DynamicArray()  # copy the dynamic array, replace the heap
+        for i in range(da.length()):
             value = da.get_at_index(i)
             new_heap.append(value)
         self._heap = new_heap  # make the new_heap our current heap
 
         parent_index = (da.length() // 2) - 1
-        while (parent_index != -1): 
-            self.percolate_down(parent_index)  # percolate down...
-            parent_index -= 1  # increment 
+        while (parent_index != -1):
+            percolate_down(self._heap, parent_index)  # percolate down...
+            parent_index -= 1  # increment
 
     def size(self) -> int:
         """
@@ -143,23 +130,38 @@ class MinHeap:
         temp = self._heap[first_index]
         self._heap[first_index] = self._heap[second_index]
         self._heap[second_index] = temp
-   
+
+
+def percolate_down(da: DynamicArray, index):
+    """Helper function"""
+    left_child = index * 2 + 1  # define the left child of node at index
+    right_child = index * 2 + 2  # define the right child of node at index
+    size = da.length() - 1  # define the length
+    min_value = index  # min_value value node at index
+    # compare the left and right child to find the min_value value
+    if left_child <= size and da.get_at_index(min_value) > da.get_at_index(left_child):
+        min_value = left_child
+    if right_child <= size and da.get_at_index(min_value) > da.get_at_index(right_child):
+        min_value = right_child
+    if min_value != index:
+        da.swap(index, min_value)  # swap with a child having a smaller value
+        percolate_down(da, min_value)  # percolate down...
+
 def heapsort(da: DynamicArray) -> None:
     """
-    Function receives a DynamicArray, sorts in non-ascending order, 
-    using the Heapsort algorithm. 
-    Must sort the array in place, without creating a new array. 
-    Must be O(N log N). 
+    Function receives a DynamicArray, sorts in non-ascending order,
+    using the Heapsort algorithm.
+    Must sort the array in place, without creating a new array.
+    Must be O(N log N).
     """
 
-    # n = da.length()
-    # k = n - 1
-    # heap = MinHeap()
-    # heap.build_heap(da)
-    # while k >= 0:
-        # da[k] = heap.remove_min()
-        # k -= 1
-
+    #n = da.length()
+    #k = n - 1
+    #heap = MinHeap()
+    #heap.build_heap(da)
+    #while k >= 0:
+        #da[k] = heap.remove_min()
+        #k -= 1
 
 
 # ------------------- BASIC TESTING -----------------------------------------
